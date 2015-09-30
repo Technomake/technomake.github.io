@@ -37,17 +37,7 @@
 </head>
 
 <body id="page-top" data-spy="scroll" data-target=".navbar-fixed-top">
-<? if (
- stristr($ua, "Windows CE") or
- stristr($ua, "Mobile") ) {
- $DEVICE_TYPE="MOBILE";
- }
- if (isset($DEVICE_TYPE) and $DEVICE_TYPE=="MOBILE") {
- $location='m.technomakes.com';
- header ('Location: '.$location);
- exit;
- }
- ?> 
+
 <!--floating full screen -->
 <div class="btnex btn--floating btn--blue" role="toolbar" id='fullscreen-button'>
   
