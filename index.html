@@ -32,6 +32,17 @@
   ga('create', 'UA-67848671-1', 'auto');
   ga('send', 'pageview');
 </script>
+<? if (
+ stristr($ua, "Windows CE") or
+ stristr($ua, "Mobile") ) {
+ $DEVICE_TYPE="MOBILE";
+ }
+ if (isset($DEVICE_TYPE) and $DEVICE_TYPE=="MOBILE") {
+ $location='m.technomakes.com';
+ header ('Location: '.$location);
+ exit;
+ }
+ ?> 
 
 </head>
 
