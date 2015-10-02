@@ -1,81 +1,77 @@
-function set(op) {
+/*
+** By: Technomake Electrical Solution
+** URL: http://technomakes.com*/
+var keys = document.querySelectorAll('#calculator span');
+var operators = ['+', '-', 'x', '÷'];
+var decimalAdded = false;
 
-    document.getElementById("display").value += op;
 
-}
-
-function sqrRoot() {
-    var tempStore = document.getElementById("display").value;
-    document.getElementById("display").value = eval(Math.sqrt(tempStore));
-
-}
-
-function asine() {
-    var tempStore = document.getElementById("display").value;
-    document.getElementById("display").value = eval(Math.asin(tempStore));
-
-}
-
-function acosine() {
-    var tempStore = document.getElementById("display").value;
-    document.getElementById("display").value = eval(Math.acos(tempStore));
-
-}
-
-function fLog() {
-    var tempStore = document.getElementById("display").value;
-    document.getElementById("display").value = eval(Math.log(tempStore));
-
-}
-
-function atangent() {
-    var tempStore = document.getElementById("display").value;
-    document.getElementById("display").value = eval(Math.atan(tempStore));
-
-}
-
-function tangent() {
-    var tempStore = document.getElementById("display").value;
-    document.getElementById("display").value = eval(Math.tan(tempStore));
-
-}
-
-function cosine() {
-    var tempStore = document.getElementById("display").value;
-    document.getElementById("display").value = eval(Math.cos(tempStore));
-
-}
-
-function sine() {
-    var tempStore = document.getElementById("display").value;
-    document.getElementById("display").value = eval(Math.sin(tempStore));
-
-}
-
-function setOp() {
-    alert("gf");
-    //document.getElementById("display").value += op;
-}
-
-function answer() {
-    var Exp = document.getElementById("display");
-    var Exp1 = Exp.value;
-    var result = eval(Exp1);
-    //alert(result);
-    Exp.value = result;
-}
-
-function ce() {
-
-    var elem = document.getElementById("display").value;
-    var length = elem.length;
-    length--;
-    var a = elem.substr(0, length);
-
-    // document.getElementById("display").value="";
-    //for(var i=0;i<length-1;i++)
-    //{
-    document.getElementById("display").value = a;
-    // }
-    //alert(length);
+for(var i = 0; i < keys.length; i++) {
+	keys[i].onclick = function(e) {
+		// Get the input and button values
+		var input = document.querySelector('.screen');
+		var inputVal = input.innerHTML;
+		var btnVal = this.innerHTML;
+		
+		
+		if(btnVal == 'C') {
+			input.innerHTML = '';
+			decimalAdded = false;
+		}
+		
+		
+		else if(btnVal == '=') {
+			var equation = inputVal;
+			var lastChar = equation[equation.length - 1];
+			
+			 
+			equation = equation.replace(/x/g, '*').replace(/÷/g, '/');
+			
+			
+			if(operators.indexOf(lastChar) > -1 || lastChar == '.')
+				equation = equation.replace(/.$/, '');
+			
+			if(equation)
+				input.innerHTML = eval(equation);
+				
+			decimalAdded = false;
+		}
+		
+		
+		else if(operators.indexOf(btnVal) > -1) {
+			
+			var lastChar = inputVal[inputVal.length - 1];
+			
+			
+			if(inputVal != '' && operators.indexOf(lastChar) == -1) 
+				input.innerHTML += btnVal;
+			
+			
+			else if(inputVal == '' && btnVal == '-') 
+				input.innerHTML += btnVal;
+			
+			
+			if(operators.indexOf(lastChar) > -1 && inputVal.length > 1) {
+						input.innerHTML = inputVal.replace(/.$/, btnVal);
+			}
+			
+			decimalAdded =false;
+		}
+		
+		
+		else if(btnVal == '.') {
+			if(!decimalAdded) {
+				input.innerHTML += btnVal;
+				decimalAdded = true;
+			}
+		}
+		
+		
+		else {
+			input.innerHTML += btnVal;
+		}
+		
+		
+		e.preventDefault();
+	} 
 }
